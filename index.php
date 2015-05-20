@@ -23,6 +23,7 @@ if (isset($_SESSION['id'])) {
 
                 var flag = <?php echo $existe; ?>;
                 if (flag) {
+                    $('#tiempo').load("weather.php"),
                     $('#example').dataTable({
                         "ajax": {
                             "url": "ajax.php",
@@ -64,6 +65,9 @@ if (isset($_SESSION['id'])) {
                 </fieldset>
             </form>  
             <p>Servicio: <?php echo $_SESSION['id']; ?></p>
+            <div id="tiempo">
+                
+            </div>
         </div>
         <div id='contenido'>
             <table id="example" class="display" width="100%" cellspacing="0">
