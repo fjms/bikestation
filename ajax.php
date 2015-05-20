@@ -12,9 +12,6 @@ if (isset($_SESSION['id'])) {
     curl_close($ch);
     $data = json_decode($json, true);
     $station = $data['network']['stations'];
-    $_SESSION['ciudad']=$data['network']['location']['city'];
-    $_SESSION['latitud']=$data['network']['location']['latitude'];
-    $_SESSION['longitud']=$data['network']['location']['longitude'];
     $col = [];
     for ($i = 0; $i < count($station); $i++) {
         $fil = [];

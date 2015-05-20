@@ -5,6 +5,18 @@ session_start();
 
 if (isset($_POST['enviar'])) {
     $_SESSION['id'] = $_POST['ciudad'];
+    $url_json = "http://api.citybik.es/v2/networks/" . $_SESSION['id'];
+    $ch = curl_init();
+    $timeout = 5;
+    curl_setopt($ch, CURLOPT_URL, $url_json);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $json = curl_exec($ch);
+    curl_close($ch);
+    $data = json_decode($json, true);
+    $_SESSION['ciudad'] = $data['network']['location']['city'];
+    $_SESSION['latitud'] = $data['network']['location']['latitude'];
+    $_SESSION['longitud'] = $data['network']['location']['longitude'];
     header('Location: ./index.php');
 } else if (isset($_GET['q'])) {
     $pais = $_GET['q'];

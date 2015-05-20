@@ -1,9 +1,11 @@
 <?php
 
 session_start();
-$url_json = "http://api.openweathermap.org/data/2.5/weather?lat=" . $_SESSION['latitud'] . "&lon=" . $_SESSION['longitud'] . "&units=metric&lang=es";
-//$url_json = "http://api.openweathermap.org/data/2.5/weather?lat=37.39&lon=-5.98&units=metric&lang=es";
 
+$latidud = floor($_SESSION['latitud'] * 100) / 100;
+$longitud = floor($_SESSION['longitud'] * 100) / 100;
+
+$url_json = "http://api.openweathermap.org/data/2.5/weather?lat=" . $latitud . "&lon=" . $longitud . "&units=metric&lang=es";
 $ch = curl_init();
 $timeout = 5;
 curl_setopt($ch, CURLOPT_URL, $url_json);
@@ -13,5 +15,8 @@ $json = curl_exec($ch);
 curl_close($ch);
 $data = json_decode($json, true);
 $descripcion = $data['weather'][0]['description'];
+$icono = $data['weather'][0]['icon'] . ".png";
 $temperatura = $data['main']['temp'];
-echo "Temperatura: ".$temperatura."°C<br>Tiempo: ".$descripcion;
+echo "<h3>" . $_SESSION['ciudad'] . "</h3>";
+echo '<img src="http://openweathermap.org/img/w/' . $icono . '" ><br>';
+echo $descripcion . "<br>" . $temperatura . "°C";
