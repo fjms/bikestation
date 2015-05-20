@@ -30,12 +30,17 @@ if (isset($_POST['enviar'])) {
     curl_close($ch);
     $data = json_decode($json, true);
     $net = $data['networks'];
+    $ciudades = [];
     for ($i = 0; $i < count($data['networks']); $i++) {
         $country = $net[$i]['location']['country'];
         if ($country === $pais) {
-            echo "<option value=" . $net[$i]['id'] . ">";
-            echo $net[$i]['location']['city'];
-            echo "</option>";
+            $ciudades[$net[$i]['location']['city']] = $net[$i]['id'];
         }
+    }
+    ksort($ciudades);
+    foreach ($ciudades as $key => $value) {
+        echo "<option value=" . $value . ">";
+        echo $key;
+        echo "</option>";
     }
 }
