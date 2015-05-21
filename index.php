@@ -26,6 +26,9 @@ if (isset($_SESSION['id'])) {
                     $('#tiempo').load("weather.php"),
                     
                     $('#example').dataTable({
+						"language":{
+							"url":"https://cdn.datatables.net/plug-ins/1.10.7/i18n/Spanish.json"
+                        },
                         "ajax": {
                             "url": "ajax.php",
                             "type": "POST"
